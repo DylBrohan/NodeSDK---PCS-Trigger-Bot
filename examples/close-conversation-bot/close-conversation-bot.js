@@ -111,12 +111,16 @@ class CloseConversationBot extends Agent {
 
     onCloseConversation(change) {
         console.log(`closing: ${change.result.convId}`);
-
+        console.log('CHANGEOBJECT', change);
         this.updateConversationField({
             conversationId: change.result.convId,
             conversationField: [{
-                field: 'ConversationStateField',
-                conversationState: 'CLOSE'
+                field: 'DialogChange',
+                type:'UPDATE',
+                dialog:{
+                    dialogId: change.result.convId,
+                    state: 'CLOSE'                
+                }
             }]
         }, (e, resp) => {
             if (e) { console.error(e) } else {
